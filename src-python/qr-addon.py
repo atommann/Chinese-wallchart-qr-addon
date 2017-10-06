@@ -7,6 +7,7 @@ from reportlab.lib.units import mm
 # https://pypi.python.org/pypi/qrcode
 # TODO
 # - put Chinese char at the center of the QR code image?
+#   better to put it below it
 # - a qr code for 汉语拼音方案 http://www.zdic.net/appendix/f8.htm
 # - this python code should accept parameters
 #   like, make png: generate PNG files
@@ -134,6 +135,30 @@ def gen_tab(tab):
 600 dot/inch
 600 dot/25.4mm
 每个像素 = 25.4mm/600 = 0.0423
+'''
+
+'''
+For example, for the 10x8 character table
+
+  |     .        .        .
+  |     .        .        .
+  |     .        .        .
+  |   _____    _____    _____
+  |  |     |  |     |  |     |
+  |  | 9,1 |  | 9,2 |  | 9,3 | ...
+  |  |_____|  |_____|  |_____|
+  |
+  |   _____    _____    _____
+  |  |     |  |     |  |     |
+  |  |10,1 |  |10,2 |  |10,3 | ...
+  |  |_____|  |_____|  |_____|
+  |
+  |________________________________________
+  .
+ /|\
+  |
+  +------- Lower left of the PDF page
+
 '''
 
 
