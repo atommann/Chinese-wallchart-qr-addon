@@ -4,16 +4,18 @@ import codecs
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm
 
+# qrcode lib:
 # https://pypi.python.org/pypi/qrcode
+#
 # TODO
 # - put Chinese char at the center of the QR code image?
-#   better to put it below it
-# - a qr code for 汉语拼音方案 http://www.zdic.net/appendix/f8.htm
-# - this python code should accept parameters
+#   better to put below it
+# - Add a QR code for 汉语拼音方案 http://www.zdic.net/appendix/f8.htm
+# - The code should accept parameters
 #   like, make png: generate PNG files
 #         make pdf: generate PDF files
 
-# IDEAS
+# Ideas
 # - use short URL, smaller image
 # - The Chinese Characters can be store in a text file then python open
 #   then process the chars
@@ -85,13 +87,13 @@ for x in charlist1:
         print y
 """
 
-# PC version
+# zdic PC version
 # url_header = 'http://www.zdic.net/z/17/js/'
-url_tail = '.htm'
+# url_tail = '.htm'
 
-# touch screen device version
+# zdic touch screen device version
+# url_header = 'm.zdic.net/z/?u=' # without http://, only works for some browsers.
 url_header = 'http://m.zdic.net/z/?u='
-#url_header = 'm.zdic.net/z/?u='
 
 
 #------------------------------------------------
@@ -132,28 +134,29 @@ def gen_tab(tab):
             img.save(image_file, "PNG")
 
 '''
-600 dot/inch
-600 dot/25.4mm
+600 dots/inch
+600 dots/25.4mm
 每个像素 = 25.4mm/600 = 0.0423
 '''
 
 '''
 For example, for the 10x8 character table
 
-  |     .        .        .
-  |     .        .        .
-  |     .        .        .
-  |   _____    _____    _____
-  |  |     |  |     |  |     |
-  |  | 9,1 |  | 9,2 |  | 9,3 | ...
-  |  |_____|  |_____|  |_____|
+   _______________________
+  |   _____    _____
+  |  |     |  |     |
+  |  | 1,1 |  | 1,2 | ...
+  |  |_____|  |_____|
   |
-  |   _____    _____    _____
-  |  |     |  |     |  |     |
-  |  |10,1 |  |10,2 |  |10,3 | ...
-  |  |_____|  |_____|  |_____|
+  .     .        .
+  .     .        .
+  .     .        .
+  |   _____    _____
+  |  |     |  |     |
+  |  |10,1 |  |10,2 | ...
+  |  |_____|  |_____|
   |
-  |________________________________________
+  |_______________________
   .
  /|\
   |
@@ -172,7 +175,7 @@ def emit_pdf(filename, tab, row, col):
         for y in range (1, row+1):
             filename = str(row+1 - y) + "_" + str(x) + ".png"
             print filename
-            c.drawImage(filename, x*20*mm, y*20*mm, 15*mm, 15*mm)
+            c.drawImage(filename, x*17*mm, y*17*mm, 15*mm, 15*mm)
 
     c.showPage()
     c.save()
@@ -185,15 +188,3 @@ emit_pdf('char_tab_02.pdf', char_tab_list[1], 10, 8)
 emit_pdf('char_tab_03.pdf', char_tab_list[2], 10, 7)
 emit_pdf('char_tab_04.pdf', char_tab_list[3], 10, 7)
 
-
-
-"""
-# qr.add_data('http://www.zdic.net/z/17/js/5929.htm')
-qr.add_data(d)
-qr.make(fit=True)
-
-img = qr.make_image()
-# should encode the sequence number and unicode in the image file name
-# for the further image processing
-#img.save("tian_qrcode.png")
-"""
